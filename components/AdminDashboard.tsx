@@ -86,7 +86,7 @@ const AdminDashboard: React.FC = () => {
                 <div className="text-right">
                   <p className="text-xs font-bold text-gray-900">{booking.time}</p>
                   <p className={`text-[10px] font-bold uppercase tracking-widest ${booking.status === 'completed' ? 'text-green-500' :
-                      booking.status === 'confirmed' ? 'text-blue-500' : 'text-orange-500'
+                    booking.status === 'confirmed' ? 'text-blue-500' : 'text-orange-500'
                     }`}>{booking.status}</p>
                 </div>
               </div>
@@ -148,8 +148,8 @@ const AdminDashboard: React.FC = () => {
                 <td className="px-6 py-4 text-sm text-gray-500">{row.phone}</td>
                 <td className="px-6 py-4">
                   <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${row.status === 'completed' ? 'bg-green-100 text-green-700' :
-                      row.status === 'confirmed' ? 'bg-blue-100 text-blue-700' :
-                        row.status === 'cancelled' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700'
+                    row.status === 'confirmed' ? 'bg-blue-100 text-blue-700' :
+                      row.status === 'cancelled' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700'
                     }`}>
                     {row.status}
                   </span>
@@ -174,8 +174,8 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
-      <div className="w-full md:w-64 bg-white border-r border-gray-100 md:h-screen sticky top-0 z-30">
-        <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+      <div className="w-full md:w-64 bg-white border-r border-gray-100 md:h-screen fixed md:sticky top-0 z-50">
+        <div className="p-6 border-b border-gray-100 flex items-center justify-between h-20">
           <div className="flex items-center space-x-2">
             <div className="bg-blue-600 p-1.5 rounded-lg text-white">
               <Users size={20} />
@@ -193,11 +193,12 @@ const AdminDashboard: React.FC = () => {
         <div className={`
           ${isMobileMenuOpen ? 'flex' : 'hidden'} 
           md:flex flex-col 
-          absolute md:static top-full left-0 right-0 
+          absolute md:static top-20 left-0 right-0 
           bg-white md:bg-transparent 
           shadow-xl md:shadow-none 
           border-b md:border-b-0 border-gray-100 
-          md:h-[calc(100vh-88px)]
+          h-[calc(100vh-5rem)] md:h-[calc(100vh-88px)]
+          overflow-y-auto
         `}>
           <div className="flex-grow p-4 space-y-2">
             {[
@@ -230,7 +231,7 @@ const AdminDashboard: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex-grow p-4 md:p-8 lg:p-12 overflow-y-auto">
+      <div className="flex-grow p-4 md:p-8 lg:p-12 overflow-y-auto mt-20 md:mt-0">
         <header className="flex justify-between items-center mb-8">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 capitalize">{activeTab}</h2>
