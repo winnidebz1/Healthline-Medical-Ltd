@@ -36,9 +36,8 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
               <button
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
-                className={`text-sm font-medium transition-colors ${
-                  currentPage === item.id ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
-                }`}
+                className={`text-sm font-medium transition-colors ${currentPage === item.id ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
+                  }`}
               >
                 {item.label}
               </button>
@@ -64,7 +63,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 py-4 px-4 space-y-2">
+        <div className="absolute top-20 inset-x-0 md:hidden bg-white border-b border-gray-100 shadow-xl py-4 px-4 space-y-2">
           {navItems.map((item) => (
             <button
               key={item.id}
