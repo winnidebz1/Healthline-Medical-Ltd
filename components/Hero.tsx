@@ -77,13 +77,13 @@ const Hero: React.FC<HeroProps> = ({ onBookClick }) => {
 
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/50 backdrop-blur-md text-gray-800 hover:bg-white transition-all duration-300 shadow-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+        className="hidden md:block absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/50 backdrop-blur-md text-gray-800 hover:bg-white transition-all duration-300 shadow-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible"
       >
         <ChevronLeft size={24} />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/50 backdrop-blur-md text-gray-800 hover:bg-white transition-all duration-300 shadow-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+        className="hidden md:block absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/50 backdrop-blur-md text-gray-800 hover:bg-white transition-all duration-300 shadow-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible"
       >
         <ChevronRight size={24} />
       </button>
