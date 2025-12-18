@@ -63,28 +63,30 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
       </div>
 
       {isOpen && (
-        <div className="absolute top-20 inset-x-0 md:hidden bg-white border-b border-gray-100 shadow-xl py-4 px-4 space-y-2">
-          {navItems.map((item) => (
+        <div className="fixed inset-0 top-20 z-40 bg-white/95 backdrop-blur-sm md:hidden h-screen overflow-y-auto pb-20 animate-fadeIn">
+          <div className="flex flex-col p-4 space-y-2">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  onNavigate(item.id);
+                  setIsOpen(false);
+                }}
+                className="w-full text-left px-4 py-4 text-lg font-bold text-gray-800 hover:text-blue-600 hover:bg-blue-50/50 rounded-2xl border-b border-gray-100 last:border-0 transition-all"
+              >
+                {item.label}
+              </button>
+            ))}
             <button
-              key={item.id}
               onClick={() => {
-                onNavigate(item.id);
+                onNavigate('admin');
                 setIsOpen(false);
               }}
-              className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+              className="w-full text-left px-4 py-4 text-lg font-bold text-gray-400 hover:text-gray-900 hover:bg-gray-50 rounded-2xl transition-all"
             >
-              {item.label}
+              Staff Dashboard
             </button>
-          ))}
-          <button
-            onClick={() => {
-              onNavigate('admin');
-              setIsOpen(false);
-            }}
-            className="block w-full text-left px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-50 rounded-md"
-          >
-            Staff Dashboard
-          </button>
+          </div>
         </div>
       )}
     </nav>

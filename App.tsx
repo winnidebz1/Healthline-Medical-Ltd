@@ -16,6 +16,10 @@ import {
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('home');
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
+
   const renderHome = () => (
     <div className="animate-fadeIn">
       <Hero onBookClick={() => setCurrentPage('booking')} />
