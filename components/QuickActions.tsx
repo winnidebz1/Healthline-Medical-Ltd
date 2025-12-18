@@ -15,19 +15,19 @@ const QuickActions: React.FC<QuickActionsProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="bg-white border-b border-gray-100 py-8">
+    <div className="bg-white border-b border-gray-100 py-6 md:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {actions.map((action) => (
             <button
               key={action.id}
               onClick={() => onNavigate(action.id)}
-              className="flex items-center p-4 rounded-2xl border border-gray-100 hover:border-blue-100 hover:shadow-lg hover:shadow-blue-50 transition-all group"
+              className="flex flex-col md:flex-row items-center justify-center md:justify-start p-4 md:p-4 rounded-xl md:rounded-2xl border border-gray-100 hover:border-blue-100 hover:shadow-lg hover:shadow-blue-50 transition-all group active:scale-95 min-h-[100px] md:min-h-0"
             >
-              <div className={`p-3 rounded-xl ${action.color} group-hover:scale-110 transition-transform`}>
-                <action.icon size={24} />
+              <div className={`p-2.5 md:p-3 rounded-lg md:rounded-xl ${action.color} group-hover:scale-110 transition-transform mb-2 md:mb-0`}>
+                <action.icon size={20} className="md:w-6 md:h-6" />
               </div>
-              <span className="ml-4 font-semibold text-gray-800">{action.label}</span>
+              <span className="text-xs md:text-base md:ml-4 font-semibold text-gray-800 text-center md:text-left">{action.label}</span>
             </button>
           ))}
         </div>

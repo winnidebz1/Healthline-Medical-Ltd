@@ -39,31 +39,31 @@ const Hero: React.FC<HeroProps> = ({ onBookClick }) => {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                 <div className="max-w-2xl">
 
-                  <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
                     {campaign.title}
                   </h1>
-                  <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-lg">
+                  <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 md:mb-8 max-w-lg leading-relaxed">
                     {campaign.description}
                   </p>
 
-                  <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-10">
+                  <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mb-6 md:mb-10">
                     <button
                       onClick={onBookClick}
-                      className="inline-flex justify-center items-center px-8 py-4 border border-transparent text-base font-semibold rounded-xl text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all active:scale-95"
+                      className="inline-flex justify-center items-center px-6 py-3 md:px-8 md:py-4 border border-transparent text-sm md:text-base font-semibold rounded-xl text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all active:scale-95"
                     >
                       {campaign.cta}
                     </button>
-                    <div className="flex items-center space-x-6">
-                      <div className="flex items-center space-x-1 text-xs font-semibold text-gray-500 uppercase tracking-widest">
-                        <ShieldCheck size={16} className="text-green-500" />
+                    <div className="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-6 justify-center sm:justify-start">
+                      <div className="flex items-center space-x-1 text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        <ShieldCheck size={14} className="text-green-500 sm:w-4 sm:h-4" />
                         <span>Accurate</span>
                       </div>
-                      <div className="flex items-center space-x-1 text-xs font-semibold text-gray-500 uppercase tracking-widest">
-                        <CircleDollarSign size={16} className="text-green-500" />
+                      <div className="flex items-center space-x-1 text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        <CircleDollarSign size={14} className="text-green-500 sm:w-4 sm:h-4" />
                         <span>Affordable</span>
                       </div>
-                      <div className="flex items-center space-x-1 text-xs font-semibold text-gray-500 uppercase tracking-widest">
-                        <Zap size={16} className="text-green-500" />
+                      <div className="flex items-center space-x-1 text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        <Zap size={14} className="text-green-500 sm:w-4 sm:h-4" />
                         <span>Fast</span>
                       </div>
                     </div>
