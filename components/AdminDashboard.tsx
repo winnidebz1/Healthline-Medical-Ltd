@@ -1,8 +1,7 @@
 
 import React, { useState } from 'react';
-Users, Calendar, FileCheck, AlertCircle, BarChart3,
-  Search, Filter, Plus, Download, LayoutGrid, List, MoreVertical,
-  CheckCircle2, Clock, XCircle, Menu, X
+Search, Filter, Plus, Download, LayoutGrid, List, MoreVertical,
+  CheckCircle2, Clock, XCircle, Menu, X, User, Settings, LogOut, ChevronDown, UserCircle
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 
@@ -19,6 +18,108 @@ const data = [
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
+
+  // Close profile dropdown when clicking outside (simple implementation)
+  React.useEffect(() => {
+    const closeDropdown = () => setIsProfileOpen(false);
+    if (isProfileOpen) {
+      window.addEventListener('click', closeDropdown);
+    }
+    return () => window.removeEventListener('click', closeDropdown);
+  }, [isProfileOpen]);
+
+  // Prevent event propagation for dropdown toggle
+  const toggleProfile = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsProfileOpen(!isProfileOpen);
+  };
+
+  const handleSignOut = () => {
+    setIsSignOutModalOpen(false);
+    // Add actual sign out logic here
+    console.log("Signing out...");
+  };
+
+  const UserMenu = () => (
+    <div className="relative">
+      <button
+        onClick={toggleProfile}
+        className="flex items-center space-x-2 p-1.5 rounded-xl hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200 focus:outline-none"
+      >
+        <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+          <User size={16} className="text-blue-600" />
+        </div>
+        <div className="hidden md:block text-left">
+          <p className="text-xs font-bold text-gray-900 leading-none">Dr. Yaw Adjei</p>
+          <p className="text-[10px] text-gray-500 font-medium leading-none mt-1">Administrator</p>
+        </div>
+        <ChevronDown size={14} className="text-gray-400 hidden md:block" />
+      </button>
+
+      {isProfileOpen && (
+        <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 z-50 overflow-hidden animate-fadeIn origin-top-right">
+          <div className="p-4 bg-gray-50 border-b border-gray-100 md:hidden">
+            <p className="text-sm font-bold text-gray-900">Dr. Yaw Adjei</p>
+            <p className="text-xs text-gray-500">Administrator</p>
+          </div>
+          <div className="p-2 space-y-1">
+            <button className="w-full flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-blue-600 rounded-xl transition-colors text-left">
+              <UserCircle size={16} />
+              <span>Profile</span>
+            </button>
+            <button className="w-full flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-blue-600 rounded-xl transition-colors text-left">
+              <Settings size={16} />
+              <span>Settings</span>
+            </button>
+          </div>
+          <div className="p-2 border-t border-gray-100">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsProfileOpen(false);
+                setIsSignOutModalOpen(true);
+              }}
+              className="w-full flex items-center space-x-2 px-3 py-2 text-sm font-bold text-red-500 hover:bg-red-50 rounded-xl transition-colors text-left"
+            >
+              <LogOut size={16} />
+              <span>Sign Out</span>
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const SignOutModal = () => {
+    if (!isSignOutModalOpen) return null;
+    return (
+      <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
+        <div className="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 animate-fadeIn">
+          <div className="w-12 h-12 rounded-full bg-red-100 text-red-500 flex items-center justify-center mx-auto mb-4">
+            <LogOut size={24} />
+          </div>
+          <h3 className="text-xl font-bold text-center text-gray-900 mb-2">Sign Out?</h3>
+          <p className="text-sm text-gray-500 text-center mb-6">Are you sure you want to end your session? You will need to log in again to access the dashboard.</p>
+          <div className="flex space-x-3">
+            <button
+              onClick={() => setIsSignOutModalOpen(false)}
+              className="flex-1 py-3 text-sm font-bold text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleSignOut}
+              className="flex-1 py-3 text-sm font-bold text-white bg-red-500 hover:bg-red-600 rounded-xl transition-colors shadow-lg shadow-red-100"
+            >
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   const stats = [
     { label: "Today's Bookings", value: "24", icon: Calendar, color: "text-blue-600", bg: "bg-blue-50" },
@@ -182,12 +283,15 @@ const AdminDashboard: React.FC = () => {
             </div>
             <span className="font-bold text-gray-900 tracking-tight">Staff Panel</span>
           </div>
-          <button
-            className="md:hidden text-gray-500 hover:text-gray-900 focus:outline-none"
+          <div className="flex items-center space-x-2 md:hidden">
+             <UserMenu />
+             <button
+            className="text-gray-500 hover:text-gray-900 focus:outline-none p-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
+          </div>
         </div>
 
         <div className={`
@@ -222,11 +326,7 @@ const AdminDashboard: React.FC = () => {
             ))}
           </div>
           <div className="p-4 border-t border-gray-100 bg-white md:bg-transparent">
-            <div className="p-4 bg-gray-50 rounded-2xl">
-              <p className="text-xs font-bold text-gray-900">Dr. Yaw Adjei</p>
-              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Administrator</p>
-            </div>
-            <button className="w-full mt-4 text-xs font-bold text-red-500 hover:text-red-700 transition-colors">Sign Out</button>
+             <div className="text-xs text-gray-400 text-center">Version 2.4.0 • Secured</div>
           </div>
         </div>
       </div>
@@ -237,10 +337,15 @@ const AdminDashboard: React.FC = () => {
             <h2 className="text-2xl font-bold text-gray-900 capitalize">{activeTab}</h2>
             <p className="text-sm text-gray-500 mt-1">Healthline Medical Ltd Operational Control</p>
           </div>
-          <button className="flex items-center space-x-2 bg-white border border-gray-100 px-4 py-2 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-50 transition-colors shadow-sm">
-            <Download size={18} />
-            <span>Export CSV</span>
-          </button>
+          <div className="flex items-center space-x-4">
+             <button className="hidden sm:flex items-center space-x-2 bg-white border border-gray-100 px-4 py-2 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-50 transition-colors shadow-sm">
+               <Download size={18} />
+               <span>Export CSV</span>
+             </button>
+             <div className="hidden md:block">
+                <UserMenu />
+             </div>
+          </div>
         </header>
 
         {activeTab === 'overview' && renderOverview()}
@@ -255,7 +360,9 @@ const AdminDashboard: React.FC = () => {
           </div>
         )}
       </div>
-    </div>
+      </div>
+      <SignOutModal />
+    </div >
   );
 };
 
