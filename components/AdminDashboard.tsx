@@ -1,9 +1,8 @@
 
 import React, { useState } from 'react';
-import { 
-  Users, Calendar, FileCheck, AlertCircle, BarChart3, 
+Users, Calendar, FileCheck, AlertCircle, BarChart3,
   Search, Filter, Plus, Download, LayoutGrid, List, MoreVertical,
-  CheckCircle2, Clock, XCircle
+  CheckCircle2, Clock, XCircle, Menu, X
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 
@@ -19,6 +18,7 @@ const data = [
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const stats = [
     { label: "Today's Bookings", value: "24", icon: Calendar, color: "text-blue-600", bg: "bg-blue-50" },
@@ -48,16 +48,16 @@ const AdminDashboard: React.FC = () => {
           <div className="flex items-center justify-between mb-8">
             <h3 className="text-lg font-bold text-gray-900">Weekly Test Volume</h3>
             <div className="flex items-center space-x-2 text-xs font-semibold text-gray-400">
-               <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-blue-500 mr-1" /> Volume</span>
+              <span className="flex items-center"><div className="w-2 h-2 rounded-full bg-blue-500 mr-1" /> Volume</span>
             </div>
           </div>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
-                <Tooltip cursor={{fill: '#f8fafc'}} contentStyle={{borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} dy={10} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
+                <Tooltip cursor={{ fill: '#f8fafc' }} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
                 <Bar dataKey="tests" fill="#2563eb" radius={[6, 6, 0, 0]} barSize={32} />
               </BarChart>
             </ResponsiveContainer>
@@ -85,10 +85,9 @@ const AdminDashboard: React.FC = () => {
                 </div>
                 <div className="text-right">
                   <p className="text-xs font-bold text-gray-900">{booking.time}</p>
-                  <p className={`text-[10px] font-bold uppercase tracking-widest ${
-                    booking.status === 'completed' ? 'text-green-500' : 
-                    booking.status === 'confirmed' ? 'text-blue-500' : 'text-orange-500'
-                  }`}>{booking.status}</p>
+                  <p className={`text-[10px] font-bold uppercase tracking-widest ${booking.status === 'completed' ? 'text-green-500' :
+                      booking.status === 'confirmed' ? 'text-blue-500' : 'text-orange-500'
+                    }`}>{booking.status}</p>
                 </div>
               </div>
             ))}
@@ -148,11 +147,10 @@ const AdminDashboard: React.FC = () => {
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">{row.phone}</td>
                 <td className="px-6 py-4">
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                    row.status === 'completed' ? 'bg-green-100 text-green-700' : 
-                    row.status === 'confirmed' ? 'bg-blue-100 text-blue-700' :
-                    row.status === 'cancelled' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700'
-                  }`}>
+                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${row.status === 'completed' ? 'bg-green-100 text-green-700' :
+                      row.status === 'confirmed' ? 'bg-blue-100 text-blue-700' :
+                        row.status === 'cancelled' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700'
+                    }`}>
                     {row.status}
                   </span>
                 </td>
@@ -165,64 +163,83 @@ const AdminDashboard: React.FC = () => {
         </table>
       </div>
       <div className="p-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
-         <span className="text-xs text-gray-500 font-medium">Showing 4 of 24 appointments</span>
-         <div className="flex space-x-2">
-            <button className="px-3 py-1 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-400">Previous</button>
-            <button className="px-3 py-1 bg-white border border-gray-200 rounded-lg text-xs font-bold text-blue-600">Next</button>
-         </div>
+        <span className="text-xs text-gray-500 font-medium">Showing 4 of 24 appointments</span>
+        <div className="flex space-x-2">
+          <button className="px-3 py-1 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-400">Previous</button>
+          <button className="px-3 py-1 bg-white border border-gray-200 rounded-lg text-xs font-bold text-blue-600">Next</button>
+        </div>
       </div>
     </div>
   );
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
-      <div className="w-full md:w-64 bg-white border-r border-gray-100 h-auto md:h-screen sticky top-0 md:flex flex-col">
-        <div className="p-6 border-b border-gray-100">
+      <div className="w-full md:w-64 bg-white border-r border-gray-100 md:h-screen sticky top-0 z-30">
+        <div className="p-6 border-b border-gray-100 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="bg-blue-600 p-1.5 rounded-lg text-white">
               <Users size={20} />
             </div>
             <span className="font-bold text-gray-900 tracking-tight">Staff Panel</span>
           </div>
+          <button
+            className="md:hidden text-gray-500 hover:text-gray-900 focus:outline-none"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
-        <div className="flex-grow p-4 space-y-2">
-          {[
-            { id: 'overview', icon: BarChart3, label: 'Dashboard' },
-            { id: 'appointments', icon: Calendar, label: 'Appointments' },
-            { id: 'results', icon: FileCheck, label: 'Lab Results' },
-            { id: 'campaigns', icon: LayoutGrid, label: 'Campaigns' },
-          ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-2xl text-sm font-bold transition-all ${
-                activeTab === item.id ? 'bg-blue-600 text-white shadow-lg shadow-blue-100' : 'text-gray-500 hover:bg-gray-100'
-              }`}
-            >
-              <item.icon size={20} />
-              <span>{item.label}</span>
-            </button>
-          ))}
-        </div>
-        <div className="p-4 border-t border-gray-100">
-           <div className="p-4 bg-gray-50 rounded-2xl">
+
+        <div className={`
+          ${isMobileMenuOpen ? 'flex' : 'hidden'} 
+          md:flex flex-col 
+          absolute md:static top-full left-0 right-0 
+          bg-white md:bg-transparent 
+          shadow-xl md:shadow-none 
+          border-b md:border-b-0 border-gray-100 
+          md:h-[calc(100vh-88px)]
+        `}>
+          <div className="flex-grow p-4 space-y-2">
+            {[
+              { id: 'overview', icon: BarChart3, label: 'Dashboard' },
+              { id: 'appointments', icon: Calendar, label: 'Appointments' },
+              { id: 'results', icon: FileCheck, label: 'Lab Results' },
+              { id: 'campaigns', icon: LayoutGrid, label: 'Campaigns' },
+            ].map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveTab(item.id);
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-2xl text-sm font-bold transition-all ${activeTab === item.id ? 'bg-blue-600 text-white shadow-lg shadow-blue-100' : 'text-gray-500 hover:bg-gray-100'
+                  }`}
+              >
+                <item.icon size={20} />
+                <span>{item.label}</span>
+              </button>
+            ))}
+          </div>
+          <div className="p-4 border-t border-gray-100 bg-white md:bg-transparent">
+            <div className="p-4 bg-gray-50 rounded-2xl">
               <p className="text-xs font-bold text-gray-900">Dr. Yaw Adjei</p>
               <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Administrator</p>
-           </div>
-           <button className="w-full mt-4 text-xs font-bold text-red-500 hover:text-red-700 transition-colors">Sign Out</button>
+            </div>
+            <button className="w-full mt-4 text-xs font-bold text-red-500 hover:text-red-700 transition-colors">Sign Out</button>
+          </div>
         </div>
       </div>
 
       <div className="flex-grow p-4 md:p-8 lg:p-12 overflow-y-auto">
         <header className="flex justify-between items-center mb-8">
-           <div>
-              <h2 className="text-2xl font-bold text-gray-900 capitalize">{activeTab}</h2>
-              <p className="text-sm text-gray-500 mt-1">Healthline Medical Ltd Operational Control</p>
-           </div>
-           <button className="flex items-center space-x-2 bg-white border border-gray-100 px-4 py-2 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-50 transition-colors shadow-sm">
-              <Download size={18} />
-              <span>Export CSV</span>
-           </button>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 capitalize">{activeTab}</h2>
+            <p className="text-sm text-gray-500 mt-1">Healthline Medical Ltd Operational Control</p>
+          </div>
+          <button className="flex items-center space-x-2 bg-white border border-gray-100 px-4 py-2 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-50 transition-colors shadow-sm">
+            <Download size={18} />
+            <span>Export CSV</span>
+          </button>
         </header>
 
         {activeTab === 'overview' && renderOverview()}
