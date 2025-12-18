@@ -1,0 +1,7 @@
+{
+  "name": "Healthline Medical Diagnostic Ecosystem",
+  "description": "A comprehensive digital ecosystem for Healthline Medical Ltd, featuring online booking, secure results portal, medical info hub, and an internal admin dashboard.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
